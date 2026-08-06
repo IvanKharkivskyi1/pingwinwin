@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
+import type { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -6,17 +16,51 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('sort') sort?: string,
+    @Query('order') order?: 'asc' | 'desc',
+  ) {
+    return this.usersService.findAll({
+      page,
+      limit,
+      sort,
+      order,
+    });
   }
 
+  // @Post()
+  // create(@Body() body: CreateUserDto) {
+  //   return this.usersService.create(body);
+  // }
+
   @Post()
-  create(@Body() body: { email: string; name?: string }) {
+  create(@Body() body: CreateUserDto) {
+    console.log(body.constructor.name);
+
     return this.usersService.create(body);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body()
+    body: {
+      email?: string;
+      name?: string;
+    },
+  ) {
+    return this.usersService.update(id, body);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.usersService.delete(id);
   }
 }

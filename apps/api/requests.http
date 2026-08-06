@@ -1,4 +1,5 @@
 @host = http://localhost:3001
+@userId = ea69b6cb-011c-416e-beec-cd3b71aee9e0
 
 ### Health
 GET {{host}}/health
@@ -15,9 +16,17 @@ POST {{host}}/users
 Content-Type: application/json
 
 {
-  "email": "alisa2@example.com",
-  "name": "Alisa2"
+  "email": "asdf",
+  "name": "asdf"
+}
+
+### Update user
+PATCH {{host}}/users/{{userId}}
+Content-Type: application/json
+
+{
+  "name": "Ivan S"
 }
 
 ### Delete user
-### DELETE {{host}}/users/{{userId}}
+DELETE {{host}}/users/{{userId}}
