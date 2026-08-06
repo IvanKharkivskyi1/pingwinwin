@@ -1,0 +1,23 @@
+@host = http://localhost:3001
+
+### Health
+GET {{host}}/health
+
+###
+
+### Get users
+GET {{host}}/users
+
+###
+
+### Create user
+POST {{host}}/users
+Content-Type: application/json
+
+{
+  "email": "alisa2@example.com",
+  "name": "Alisa2"
+}
+
+### Delete user
+### DELETE {{host}}/users/{{userId}}
