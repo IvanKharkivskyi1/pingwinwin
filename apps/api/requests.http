@@ -16,16 +16,16 @@ POST {{host}}/users
 Content-Type: application/json
 
 {
-  "email": "asdf",
-  "name": "asdf"
+  "email": "ivan@example.com",
+  "name": "Duplicate Test"
 }
 
 ### Update user
-PATCH {{host}}/users/{{userId}}
+PATCH {{host}}/users/00000000-0000-0000-0000-000000000000
 Content-Type: application/json
 
 {
-  "name": "Ivan S"
+  "name": "Ghost User"
 }
 
 ### Delete user

@@ -8,7 +8,8 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import type { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import type { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -30,15 +31,8 @@ export class UsersController {
     });
   }
 
-  // @Post()
-  // create(@Body() body: CreateUserDto) {
-  //   return this.usersService.create(body);
-  // }
-
   @Post()
   create(@Body() body: CreateUserDto) {
-    console.log(body.constructor.name);
-
     return this.usersService.create(body);
   }
 
@@ -48,14 +42,8 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body()
-    body: {
-      email?: string;
-      name?: string;
-    },
-  ) {
+  update(@Param('id') id: string, @Body() body: UpdateUserDto) {
+    console.log('PATCH BODY:', body, typeof body);
     return this.usersService.update(id, body);
   }
 

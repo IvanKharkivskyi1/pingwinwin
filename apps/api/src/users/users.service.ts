@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -11,10 +16,17 @@ export class UsersService {
     sort?: string;
     order?: 'asc' | 'desc';
   }) {
-    const page = Number(options.page) || 1;
-    const limit = Number(options.limit) || 10;
+    const page = options.page ? Number(options.page) : 1;
+    const limit = options.limit ? Number(options.limit) : 10;
+
     const skip = (page - 1) * limit;
     const take = limit;
+
+    const allowedSortFields = ['id', 'email', 'name', 'createdAt'];
+
+    if (options.sort && !allowedSortFields.includes(options.sort)) {
+      throw new BadRequestException('Invalid sort field');
+    }
 
     return this.prisma.user.findMany({
       skip,
@@ -27,21 +39,37 @@ export class UsersService {
     });
   }
 
-  findOne(id: string) {
-    return this.prisma.user.findUnique({
+  async findOne(id: string) {
+    const user = await this.prisma.user.findUnique({
       where: {
         id,
       },
     });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
   }
 
-  create(data: { email: string; name?: string }) {
+  async create(data: { email: string; name?: string }) {
+    const existingUser = await this.prisma.user.findUnique({
+      where: {
+        email: data.email,
+      },
+    });
+
+    if (existingUser) {
+      throw new ConflictException('Email already exists');
+    }
+
     return this.prisma.user.create({
       data,
     });
   }
 
-  update(
+  async update(
     id: string,
     data: {
       email?: string;
@@ -54,11 +82,9 @@ export class UsersService {
     });
   }
 
-  delete(id: string) {
+  async delete(id: string) {
     return this.prisma.user.delete({
-      where: {
-        id,
-      },
+      where: { id },
     });
   }
 }
