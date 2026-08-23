@@ -9,7 +9,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import type { UpdateUserDto } from './dto/update-user.dto';
+import { GetUsersQueryDto } from './dto/get-users-query.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -17,18 +18,8 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  findAll(
-    @Query('page') page?: string,
-    @Query('limit') limit?: string,
-    @Query('sort') sort?: string,
-    @Query('order') order?: 'asc' | 'desc',
-  ) {
-    return this.usersService.findAll({
-      page,
-      limit,
-      sort,
-      order,
-    });
+  findAll(@Query() query: GetUsersQueryDto) {
+    return this.usersService.findAll(query);
   }
 
   @Post()

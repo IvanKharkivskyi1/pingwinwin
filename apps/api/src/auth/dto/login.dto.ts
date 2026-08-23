@@ -1,15 +1,14 @@
 import { Transform } from 'class-transformer';
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export class UpdateUserDto {
-  @IsOptional()
+export class LoginDto {
   @IsEmail()
   @Transform(({ value }: { value: unknown }) =>
     typeof value === 'string' ? value.trim().toLowerCase() : value,
   )
-  email?: string;
+  email!: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  name?: string;
+  password!: string;
 }
