@@ -6,6 +6,63 @@ GET {{host}}/health
 
 ###
 
+### Register user
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "auth-test@example.com",
+  "name": "Auth Test",
+  "password": "Test123456"
+}
+
+###
+
+### Register duplicate user
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "auth-test@example.com",
+  "name": "Auth Test",
+  "password": "Test123456"
+}
+
+###
+
+### Login with correct password
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "auth-test@example.com",
+  "password": "Test123456"
+}
+
+###
+
+### Login with wrong password
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "auth-test@example.com",
+  "password": "WrongPassword"
+}
+
+###
+
+### Login with normalized email
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "  AUTH-TEST@EXAMPLE.COM  ",
+  "password": "Test123456"
+}
+
+###
+
 ### Get users
 GET {{host}}/users
 
@@ -20,6 +77,8 @@ Content-Type: application/json
   "name": "Duplicate Test"
 }
 
+###
+
 ### Update user
 PATCH {{host}}/users/00000000-0000-0000-0000-000000000000
 Content-Type: application/json
@@ -27,6 +86,8 @@ Content-Type: application/json
 {
   "name": "Ghost User"
 }
+
+###
 
 ### Delete user
 DELETE {{host}}/users/{{userId}}

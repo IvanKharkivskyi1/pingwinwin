@@ -9,6 +9,11 @@ import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter'
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.enableCors({
+    origin: process.env.WEB_ORIGIN?.split(',') ?? 'http://localhost:3000',
+    credentials: true,
+  });
+
   app.useStaticAssets(join(__dirname, 'public'));
 
   app.useGlobalPipes(
