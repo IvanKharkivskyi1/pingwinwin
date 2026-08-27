@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { Button } from '@chakra-ui/react';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { API_URL, getErrorMessage, setAccessToken } from "../../lib/auth";
 
 export default function LoginPage() {
@@ -74,9 +75,9 @@ export default function LoginPage() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <button type="submit" disabled={isSubmitting}>
+      <Button colorPalette="blue" variant="solid" disabled={isSubmitting}>
         {isSubmitting ? "Signing in..." : "Sign in"}
-      </button>
+      </Button>
 
       <p>
         No account? <Link href="/register">Register</Link>
