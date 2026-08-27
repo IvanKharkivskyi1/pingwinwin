@@ -3,15 +3,26 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from 'crypto';
 import { promisify } from 'util';
 import { PrismaService } from '../prisma/prisma.service';
 
 const scrypt = promisify(scryptCallback);
 
+export interface AuthenticatedUser {
+  id: string;
+  email: string;
+  name: string | null;
+  createdAt: Date;
+}
+
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) {}
 
   async register(data: { email: string; name?: string; password: string }) {
     const email = this.normalizeEmail(data.email);
@@ -27,7 +38,7 @@ export class AuthService {
 
     const passwordHash = await this.hashPassword(data.password);
 
-    return this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         email,
         name: data.name,
@@ -40,6 +51,8 @@ export class AuthService {
         createdAt: true,
       },
     });
+
+    return this.buildAuthResponse(user);
   }
 
   async login(data: { email: string; password: string }) {
@@ -58,12 +71,21 @@ export class AuthService {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    return {
+    return this.buildAuthResponse({
       id: user.id,
       email: user.email,
       name: user.name,
       createdAt: user.createdAt,
-    };
+    });
+  }
+
+  private buildAuthResponse(user: AuthenticatedUser) {
+    const accessToken = this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+    });
+
+    return { accessToken, user };
   }
 
   private async hashPassword(password: string) {

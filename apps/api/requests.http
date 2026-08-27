@@ -31,6 +31,7 @@ Content-Type: application/json
 ###
 
 ### Login with correct password
+# @name login
 POST {{host}}/auth/login
 Content-Type: application/json
 
@@ -38,6 +39,12 @@ Content-Type: application/json
   "email": "auth-test@example.com",
   "password": "Test123456"
 }
+
+###
+
+### Get my profile
+GET {{host}}/auth/me
+Authorization: Bearer {{login.response.body.accessToken}}
 
 ###
 
@@ -65,11 +72,13 @@ Content-Type: application/json
 
 ### Get users
 GET {{host}}/users
+Authorization: Bearer {{login.response.body.accessToken}}
 
 ###
 
 ### Create user
 POST {{host}}/users
+Authorization: Bearer {{login.response.body.accessToken}}
 Content-Type: application/json
 
 {
@@ -81,6 +90,7 @@ Content-Type: application/json
 
 ### Update user
 PATCH {{host}}/users/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{login.response.body.accessToken}}
 Content-Type: application/json
 
 {
@@ -91,3 +101,4 @@ Content-Type: application/json
 
 ### Delete user
 DELETE {{host}}/users/{{userId}}
+Authorization: Bearer {{login.response.body.accessToken}}
