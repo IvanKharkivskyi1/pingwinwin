@@ -10,9 +10,9 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
-    origin: process.env.WEB_ORIGIN?.split(',') ?? 'http://localhost:3000',
-    credentials: true,
-  });
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+});
 
   app.useStaticAssets(join(__dirname, 'public'));
 
