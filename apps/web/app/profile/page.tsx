@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   API_URL,
   clearAccessToken,
   getAccessToken,
   getErrorMessage,
-} from "../../lib/auth";
+} from '../../lib/auth';
 
 type Profile = {
   id: string;
@@ -25,7 +25,7 @@ export default function ProfilePage() {
     const token = getAccessToken();
 
     if (!token) {
-      router.replace("/login");
+      router.replace('/login');
       return;
     }
 
@@ -38,14 +38,14 @@ export default function ProfilePage() {
         const data = await res.json();
 
         if (!res.ok) {
-          throw new Error(getErrorMessage(data, "Failed to load profile"));
+          throw new Error(getErrorMessage(data, 'Failed to load profile'));
         }
 
         setProfile(data);
       } catch (err) {
         clearAccessToken();
-        setError(err instanceof Error ? err.message : "Failed to load profile");
-        router.replace("/login");
+        setError(err instanceof Error ? err.message : 'Failed to load profile');
+        router.replace('/login');
       }
     };
 
@@ -54,27 +54,19 @@ export default function ProfilePage() {
 
   const handleLogout = () => {
     clearAccessToken();
-    router.push("/login");
+    router.push('/login');
   };
 
   if (!profile) {
-    return <p style={{ margin: "80px auto", maxWidth: 320 }}>Loading...</p>;
+    return <p>Loading...</p>;
   }
 
   return (
-    <main
-      style={{
-        maxWidth: 320,
-        margin: "80px auto",
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-      }}
-    >
+    <main>
       <h1>Profile</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p>{error}</p>}
       <p>Email: {profile.email}</p>
-      <p>Name: {profile.name ?? "—"}</p>
+      <p>Name: {profile.name ?? '—'}</p>
       <button type="button" onClick={handleLogout}>
         Log out
       </button>

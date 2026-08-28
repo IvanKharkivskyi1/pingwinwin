@@ -10,9 +10,11 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true,
-});
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+  });
 
   app.useStaticAssets(join(__dirname, 'public'));
 
@@ -41,7 +43,7 @@ async function bootstrap() {
 
   const port = Number(process.env.PORT) || 3001;
 
-  await app.listen(port);
+  await app.listen(process.env.PORT || 3001);
 }
 
 bootstrap();

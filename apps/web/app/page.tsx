@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/button';
+import { Button } from '@chakra-ui/react';
 import Image, { type ImageProps } from 'next/image';
 import styles from './page.module.css';
 
@@ -66,7 +66,12 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <Button appName="web" className={styles.secondary}>
+        <Button
+          type="submit"
+          colorPalette="teal"
+          variant="solid"
+          className={styles.secondary}
+        >
           Open alert
         </Button>
       </main>

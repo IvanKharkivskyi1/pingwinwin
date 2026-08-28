@@ -1,98 +1,120 @@
-"use client";
+'use client';
 
-import { Button } from "@chakra-ui/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { API_URL, getErrorMessage, setAccessToken } from "../../lib/auth";
+import { Alert, Button, Field, Fieldset, Input, Stack } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { API_URL, getErrorMessage, setAccessToken } from '../../lib/auth';
+import { AuthLayout } from '../auth-layout/auth-layout';
+
+const registerSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address'),
+  name: z.string().optional(),
+  password: z.string().min(8, 'Password must be at least 8 characters long'),
+});
+
+type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { email: '', name: '', password: '' },
+  });
+
+  const onSubmit = async (values: RegisterFormData) => {
+    setServerError(null);
 
     try {
       const res = await fetch(`${API_URL}/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name, password }),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(getErrorMessage(data, "Registration failed"));
+        throw new Error(getErrorMessage(data, 'Registration failed'));
       }
 
       setAccessToken(data.accessToken);
-      router.push("/profile");
+      router.push('/profile');
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Registration failed");
-    } finally {
-      setIsSubmitting(false);
+      setServerError(
+        err instanceof Error ? err.message : 'Registration failed',
+      );
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        maxWidth: 320,
-        margin: "80px auto",
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-      }}
+    <AuthLayout
+      title="Register"
+      footerText="Already have an account?"
+      footerLinkText="Login"
+      footerLinkHref="/login"
     >
-      <h1>Register</h1>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Fieldset.Root size="lg">
+          <Stack gap="4">
+            {serverError && (
+              <Alert.Root status="error" borderRadius="l2">
+                <Alert.Indicator />
+                <Alert.Title>{serverError}</Alert.Title>
+              </Alert.Root>
+            )}
 
-      <label>
-        Email
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
+            <Field.Root invalid={!!errors.email}>
+              <Field.Label>Email</Field.Label>
+              <Input
+                type="email"
+                placeholder="name@example.com"
+                {...register('email')}
+              />
+              <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
+            </Field.Root>
 
-      <label>
-        Name
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
+            <Field.Root invalid={!!errors.name}>
+              <Field.Label>Name</Field.Label>
+              <Input type="text" placeholder="John" {...register('name')} />
+              <Field.ErrorText>{errors.name?.message}</Field.ErrorText>
+            </Field.Root>
 
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          minLength={8}
-          required
-        />
-      </label>
+            <Field.Root invalid={!!errors.password}>
+              <Field.Label>Password</Field.Label>
+              <Input
+                type="password"
+                placeholder="••••••••"
+                {...register('password')}
+              />
+              <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
+            </Field.Root>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Registering..." : "Register"}
-      </Button>
-
-      <p>
-        Already have an account? <Link href="/login">Login</Link>
-      </p>
-    </form>
+            <Button
+              type="submit"
+              colorPalette="teal"
+              variant="solid"
+              width="full"
+              loading={isSubmitting}
+              loadingText="Registering..."
+              mt="2"
+            >
+              Register
+            </Button>
+          </Stack>
+        </Fieldset.Root>
+      </form>
+    </AuthLayout>
   );
 }

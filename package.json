@@ -1,5 +1,5 @@
 {
-  "name": "travel-ai-turbo",
+  "name": "pingwinwin",
   "private": true,
   "scripts": {
     "build": "turbo run build",

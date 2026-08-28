@@ -1,10 +1,10 @@
-const TOKEN_KEY = "accessToken";
+const TOKEN_KEY = 'accessToken';
 
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
 export function getAccessToken() {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return null;
   }
 
@@ -22,13 +22,11 @@ export function clearAccessToken() {
 export function getErrorMessage(data: unknown, fallback: string) {
   if (
     data &&
-    typeof data === "object" &&
-    "message" in data &&
-    (typeof data.message === "string" || Array.isArray(data.message))
+    typeof data === 'object' &&
+    'message' in data &&
+    (typeof data.message === 'string' || Array.isArray(data.message))
   ) {
-    return Array.isArray(data.message)
-      ? data.message.join(", ")
-      : data.message;
+    return Array.isArray(data.message) ? data.message.join(', ') : data.message;
   }
 
   return fallback;
