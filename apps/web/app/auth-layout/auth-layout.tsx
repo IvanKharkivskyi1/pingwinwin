@@ -26,7 +26,7 @@ export function AuthLayout({
         <Card.Header>
           <VStack gap="3" align="center">
             <Image
-              src="https://iynb6msbiue214kh.private.blob.vercel-storage.com/logo/logo.webp?vercel-blob-valid-until=1787928116294&vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfaXluQjZtc0JJVUUyMTRraCIsIm93bmVySWQiOiJ0ZWFtX2ZWSVJzcjRrUG9KaHJubWtCaHg5dW42RiIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzg3OTcxMjUyODY0LCJpYXQiOjE3ODc5MjgwNTE5ODJ9.YABLtbF6U_WJww2LRJWKGRtPyixl29D33EfYqUzKjyE&vercel-blob-signature=-WUtb6tobE4g5KGgZTs4Qejp00i15rH6dwYi2sTq444"
+              src="https://j0r5rfqfy848ahyl.public.blob.vercel-storage.com/logo/logo.webp"
               alt="Logo"
               width={48}
               height={48}
