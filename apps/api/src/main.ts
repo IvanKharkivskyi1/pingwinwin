@@ -9,8 +9,20 @@ import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter'
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'https://pingwinwin.vercel.app',
+    process.env.FRONTEND_URL,
+  ].filter((url): url is string => Boolean(url));
+
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+      }
+    },
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Accept, Authorization',
@@ -43,7 +55,7 @@ async function bootstrap() {
 
   const port = Number(process.env.PORT) || 3001;
 
-  await app.listen(process.env.PORT || 3001);
+  await app.listen(port, '0.0.0.0');
 }
 
-bootstrap();
+void bootstrap();
