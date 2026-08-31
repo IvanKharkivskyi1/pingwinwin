@@ -22,7 +22,7 @@ export function AuthLayout({
 }: AuthLayoutProps) {
   return (
     <Center minH="100vh" px="4">
-      <Card.Root>
+      <Card.Root variant="subtle" size="md">
         <Card.Header>
           <VStack gap="3" align="center">
             <Image
