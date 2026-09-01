@@ -7,7 +7,6 @@ const rawApiUrl =
 
 export const API_URL = rawApiUrl.replace(/\/$/, '');
 
-// The API sets the access token as an httpOnly cookie, so the browser sends it automatically.
 export function apiFetch(path: string, init: RequestInit = {}) {
   return fetch(`${API_URL}${path}`, { ...init, credentials: 'include' });
 }
