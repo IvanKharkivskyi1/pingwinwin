@@ -15,6 +15,7 @@ export interface AuthenticatedUser {
   email: string;
   name: string | null;
   createdAt: Date;
+  tokenVersion: number;
 }
 
 @Injectable()
@@ -49,6 +50,7 @@ export class AuthService {
         email: true,
         name: true,
         createdAt: true,
+        tokenVersion: true,
       },
     });
 
@@ -76,6 +78,7 @@ export class AuthService {
       email: user.email,
       name: user.name,
       createdAt: user.createdAt,
+      tokenVersion: user.tokenVersion,
     });
   }
 
@@ -83,9 +86,18 @@ export class AuthService {
     const accessToken = this.jwtService.sign({
       sub: user.id,
       email: user.email,
+      tokenVersion: user.tokenVersion,
     });
 
     return { accessToken, user };
+  }
+
+  // Bumping tokenVersion invalidates every previously issued access token for this user.
+  async logout(userId: string) {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { tokenVersion: { increment: 1 } },
+    });
   }
 
   private async hashPassword(password: string) {

@@ -1,22 +1,14 @@
-const TOKEN_KEY = 'accessToken';
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
-export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+export const API_URL = rawApiUrl.replace(/\/$/, '');
 
-export function getAccessToken() {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  return localStorage.getItem(TOKEN_KEY);
+// The API sets the access token as an httpOnly cookie, so the browser sends it automatically.
+export function apiFetch(path: string, init: RequestInit = {}) {
+  return fetch(`${API_URL}${path}`, { ...init, credentials: 'include' });
 }
 
-export function setAccessToken(token: string) {
-  localStorage.setItem(TOKEN_KEY, token);
-}
-
-export function clearAccessToken() {
-  localStorage.removeItem(TOKEN_KEY);
+export async function logout() {
+  await apiFetch('/auth/logout', { method: 'POST' });
 }
 
 export function getErrorMessage(data: unknown, fallback: string) {

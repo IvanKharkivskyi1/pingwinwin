@@ -1,15 +1,18 @@
 'use client';
 
-import { Box, Button, Heading, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Spinner,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import {
-  API_URL,
-  clearAccessToken,
-  getAccessToken,
-  getErrorMessage,
-} from '../../lib/auth';
+import { apiFetch, getErrorMessage, logout } from '../../lib/auth';
 
 type Profile = {
   id: string;
@@ -30,18 +33,9 @@ export default function ProfilePage() {
   useEffect(() => {
     if (!mounted) return;
 
-    const token = getAccessToken();
-
-    if (!token) {
-      router.replace('/login');
-      return;
-    }
-
     const loadProfile = async () => {
       try {
-        const res = await fetch(`${API_URL}/auth/me`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await apiFetch('/auth/me');
 
         const data = await res.json();
 
@@ -51,7 +45,6 @@ export default function ProfilePage() {
 
         setProfile(data);
       } catch (err) {
-        clearAccessToken();
         setError(err instanceof Error ? err.message : 'Failed to load profile');
         router.replace('/login');
       }
@@ -60,17 +53,16 @@ export default function ProfilePage() {
     void loadProfile();
   }, [mounted, router]);
 
-  const handleLogout = () => {
-    clearAccessToken();
+  const handleLogout = async () => {
+    await logout();
     router.push('/login');
   };
 
-  // Повертаємо null до гігратації клієнта, щоб повністю уникнути Hydration Mismatch
   if (!mounted || !profile) {
     return (
-      <Box p={6}>
-        <Text>Loading...</Text>
-      </Box>
+      <Flex minH="50vh" align="center" justify="center">
+        <Spinner size="xl" color="teal.500" borderWidth="4px" />
+      </Flex>
     );
   }
 

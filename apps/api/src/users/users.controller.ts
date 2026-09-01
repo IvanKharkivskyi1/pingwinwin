@@ -2,19 +2,26 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Param,
   Patch,
-  Post,
-  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import {
+  CurrentUser,
+  type CurrentUserPayload,
+} from '../auth/current-user.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { CreateUserDto } from './dto/create-user.dto';
-import { GetUsersQueryDto } from './dto/get-users-query.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
+
+function assertSelf(currentUser: CurrentUserPayload, id: string) {
+  if (currentUser.id !== id) {
+    throw new ForbiddenException('You can only access your own account');
+  }
+}
 
 @ApiTags('users')
 @ApiBearerAuth()
@@ -23,28 +30,34 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Get()
-  findAll(@Query() query: GetUsersQueryDto) {
-    return this.usersService.findAll(query);
-  }
-
-  @Post()
-  create(@Body() body: CreateUserDto) {
-    return this.usersService.create(body);
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: CurrentUserPayload,
+  ) {
+    assertSelf(currentUser, id);
+
     return this.usersService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: UpdateUserDto) {
+  update(
+    @Param('id') id: string,
+    @Body() body: UpdateUserDto,
+    @CurrentUser() currentUser: CurrentUserPayload,
+  ) {
+    assertSelf(currentUser, id);
+
     return this.usersService.update(id, body);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  delete(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: CurrentUserPayload,
+  ) {
+    assertSelf(currentUser, id);
+
     return this.usersService.delete(id);
   }
 }

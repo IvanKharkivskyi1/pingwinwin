@@ -14,29 +14,48 @@ const ColorModeContext = React.createContext<ColorModeContextType | undefined>(
   undefined,
 );
 
+function applyTheme(mode: ColorMode) {
+  if (typeof document === 'undefined') return;
+
+  document.documentElement.style.colorScheme = mode;
+  document.documentElement.dataset.theme = mode;
+  document.documentElement.classList.toggle('dark', mode === 'dark');
+}
+
 export function ColorModeProvider({ children }: { children: React.ReactNode }) {
-  const [colorMode, setColorModeState] = React.useState<ColorMode>('dark');
+  const [colorMode, setColorModeState] = React.useState<ColorMode>('light');
 
   React.useEffect(() => {
-    const savedTheme = (localStorage.getItem('theme') as ColorMode) || 'dark';
-    setColorModeState(savedTheme);
+    const savedTheme = localStorage.getItem('theme');
+    const preferredDark =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const nextMode =
+      savedTheme === 'dark' || savedTheme === 'light'
+        ? savedTheme
+        : preferredDark
+          ? 'dark'
+          : 'light';
+
+    setColorModeState(nextMode);
+    applyTheme(nextMode);
   }, []);
 
   const setColorMode = (mode: ColorMode) => {
     setColorModeState(mode);
-    localStorage.setItem('theme', mode);
-    if (mode === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.documentElement.style.colorScheme = 'dark';
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.style.colorScheme = 'light';
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', mode);
     }
+    applyTheme(mode);
   };
 
   const toggleColorMode = () => {
     setColorMode(colorMode === 'dark' ? 'light' : 'dark');
   };
+
+  React.useEffect(() => {
+    applyTheme(colorMode);
+  }, [colorMode]);
 
   return (
     <ColorModeContext.Provider
@@ -51,7 +70,7 @@ export function useColorMode() {
   const context = React.useContext(ColorModeContext);
   if (!context) {
     return {
-      colorMode: 'dark' as ColorMode,
+      colorMode: 'light' as ColorMode,
       setColorMode: () => {},
       toggleColorMode: () => {},
     };

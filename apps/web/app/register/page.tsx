@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { API_URL, getErrorMessage, setAccessToken } from '../../lib/auth';
+import { apiFetch, getErrorMessage } from '../../lib/auth';
 import { AuthLayout } from '../auth-layout/auth-layout';
 
 const registerSchema = z.object({
@@ -37,7 +37,7 @@ export default function RegisterPage() {
     setServerError(null);
 
     try {
-      const res = await fetch(`${API_URL}/auth/register`, {
+      const res = await apiFetch('/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -49,7 +49,6 @@ export default function RegisterPage() {
         throw new Error(getErrorMessage(data, 'Registration failed'));
       }
 
-      setAccessToken(data.accessToken);
       router.push('/profile');
     } catch (err) {
       setServerError(

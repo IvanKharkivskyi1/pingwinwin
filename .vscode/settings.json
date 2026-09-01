@@ -15,5 +15,12 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "chat.tools.terminal.autoApprove": {
+    "pnpm": true,
+    "/^cd /home/ivan/projects/panda-micro-team/pingwinwin/apps/api && node -e \"console\\.log\\(require\\.resolve\\('@prisma/client'\\)\\)\" && ls -la node_modules/@prisma/client 2>/dev/null \\| head -3$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
   }
 }

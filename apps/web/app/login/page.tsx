@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { API_URL, getErrorMessage, setAccessToken } from '../../lib/auth';
+import { apiFetch, getErrorMessage } from '../../lib/auth';
 import { AuthLayout } from '../auth-layout/auth-layout';
 
 const loginSchema = z.object({
@@ -36,7 +36,7 @@ export default function LoginPage() {
     setServerError(null);
 
     try {
-      const res = await fetch(`${API_URL}/auth/login`, {
+      const res = await apiFetch('/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -48,7 +48,6 @@ export default function LoginPage() {
         throw new Error(getErrorMessage(data, 'Login failed'));
       }
 
-      setAccessToken(data.accessToken);
       router.push('/profile');
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Login failed');
