@@ -1,15 +1,6 @@
 'use client';
 
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Spinner,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import Link from 'next/link';
+import { Box, Button, Flex, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { apiFetch, getErrorMessage, logout } from '../../lib/auth';
@@ -78,11 +69,9 @@ export default function ProfilePage() {
         <Text>Email: {profile.email}</Text>
         <Text>Name: {profile.name ?? '—'}</Text>
 
-        <Button type="button" onClick={handleLogout} colorPalette="red">
+        <Button type="button" onClick={handleLogout} colorPalette="cyan">
           Log out
         </Button>
-
-        <Link href="/">Home</Link>
       </VStack>
     </Box>
   );

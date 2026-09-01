@@ -10,16 +10,19 @@ interface ColorModeContextType {
   toggleColorMode: () => void;
 }
 
-const ColorModeContext = React.createContext<ColorModeContextType | undefined>(
-  undefined,
-);
+const ColorModeContext = React.createContext<ColorModeContextType | undefined>(undefined);
 
 function applyTheme(mode: ColorMode) {
   if (typeof document === 'undefined') return;
 
+  const isDark = mode === 'dark';
+
   document.documentElement.style.colorScheme = mode;
   document.documentElement.dataset.theme = mode;
-  document.documentElement.classList.toggle('dark', mode === 'dark');
+  document.documentElement.classList.toggle('dark', isDark);
+  document.documentElement.style.backgroundColor = isDark ? '#0f172a' : '#f7fafc';
+  document.body.style.backgroundColor = isDark ? '#0f172a' : '#f7fafc';
+  document.body.style.color = isDark ? '#e5e7eb' : '#111827';
 }
 
 export function ColorModeProvider({ children }: { children: React.ReactNode }) {
@@ -28,8 +31,7 @@ export function ColorModeProvider({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     const preferredDark =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
+      typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const nextMode =
       savedTheme === 'dark' || savedTheme === 'light'
         ? savedTheme
@@ -58,9 +60,7 @@ export function ColorModeProvider({ children }: { children: React.ReactNode }) {
   }, [colorMode]);
 
   return (
-    <ColorModeContext.Provider
-      value={{ colorMode, setColorMode, toggleColorMode }}
-    >
+    <ColorModeContext.Provider value={{ colorMode, setColorMode, toggleColorMode }}>
       {children}
     </ColorModeContext.Provider>
   );

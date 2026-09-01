@@ -1,9 +1,9 @@
 'use client';
 
 import { Card, Center, Heading, Text, VStack } from '@chakra-ui/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import { BrandLogo } from '../components/brand-logo';
 
 interface AuthLayoutProps {
   title: string;
@@ -25,13 +25,7 @@ export function AuthLayout({
       <Card.Root variant="subtle" size="md">
         <Card.Header>
           <VStack gap="3" align="center">
-            <Image
-              src="https://j0r5rfqfy848ahyl.public.blob.vercel-storage.com/logo/logo.webp"
-              alt="Logo"
-              width={48}
-              height={48}
-              priority
-            />
+            <BrandLogo size={48} />
             <Heading size="xl" textAlign="center">
               {title}
             </Heading>

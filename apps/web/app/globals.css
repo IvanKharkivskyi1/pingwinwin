@@ -1,5 +1,13 @@
 :root {
+  --page-bg: #f7fafc;
+  --page-fg: #111827;
   color-scheme: light;
+}
+
+html.dark {
+  --page-bg: #0f172a;
+  --page-fg: #e5e7eb;
+  color-scheme: dark;
 }
 
 html,
@@ -9,11 +17,14 @@ body {
   min-height: 100%;
   max-width: 100vw;
   overflow-x: hidden;
+  background: var(--page-bg);
+  color: var(--page-fg);
 }
 
 body {
-  background: #f7fafc;
-  color: #111827;
+  min-height: 100vh;
+  background: var(--page-bg);
+  color: var(--page-fg);
   font-family: var(--font-inter), Arial, sans-serif;
 }
 
