@@ -13,7 +13,9 @@ interface JwtPayload {
 }
 
 function extractFromCookie(req: Request): string | null {
-  return req?.cookies?.[ACCESS_TOKEN_COOKIE] ?? null;
+  const cookies = req.cookies as Record<string, string | undefined> | undefined;
+
+  return cookies?.[ACCESS_TOKEN_COOKIE] ?? null;
 }
 
 @Injectable()
@@ -48,8 +50,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException();
     }
 
-    const { tokenVersion: _tokenVersion, ...safeUser } = user;
-
-    return safeUser;
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    };
   }
 }

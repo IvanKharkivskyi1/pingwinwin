@@ -1,4 +1,9 @@
-const rawApiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+const rawApiUrl =
+  process.env.NEXT_PUBLIC_API_URL ??
+  process.env.API_URL ??
+  (process.env.NODE_ENV === 'production'
+    ? 'https://pingwinwin-api.onrender.com'
+    : 'http://localhost:3001');
 
 export const API_URL = rawApiUrl.replace(/\/$/, '');
 

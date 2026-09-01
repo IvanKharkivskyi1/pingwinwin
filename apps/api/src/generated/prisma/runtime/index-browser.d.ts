@@ -112,7 +112,13 @@ declare namespace Public {
 export { Public };
 
 declare type RuntimeName =
-  'workerd' | 'deno' | 'netlify' | 'node' | 'bun' | 'edge-light' | '';
+  | 'workerd'
+  | 'deno'
+  | 'netlify'
+  | 'node'
+  | 'bun'
+  | 'edge-light'
+  | '';
 
 declare function validator<V>(): <S>(select: Exact<S, V>) => S;
 

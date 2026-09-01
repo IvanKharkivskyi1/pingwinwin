@@ -75,7 +75,10 @@ declare type AccelerateExtensionFetchDecorator = (
 ) => AccelerateExtensionFetch;
 
 export declare type Action =
-  keyof typeof DMMF_2.ModelAction | 'executeRaw' | 'queryRaw' | 'runCommandRaw';
+  | keyof typeof DMMF_2.ModelAction
+  | 'executeRaw'
+  | 'queryRaw'
+  | 'runCommandRaw';
 
 declare type ActiveConnectorType = Exclude<
   ConnectorType,
@@ -751,17 +754,20 @@ export declare type DynamicClientExtensionThis<
 > = {
   [P in keyof ExtArgs['client']]: Return<ExtArgs['client'][P]>;
 } & {
-  [
-    P in Exclude<TypeMap['meta']['modelProps'], keyof ExtArgs['client']>
-  ]: DynamicModelExtensionThis<TypeMap, ModelKey<TypeMap, P>, ExtArgs>;
+  [P in Exclude<
+    TypeMap['meta']['modelProps'],
+    keyof ExtArgs['client']
+  >]: DynamicModelExtensionThis<TypeMap, ModelKey<TypeMap, P>, ExtArgs>;
 } & {
-  [
-    P in Exclude<keyof TypeMap['other']['operations'], keyof ExtArgs['client']>
-  ]: P extends keyof ClientOtherOps ? ClientOtherOps[P] : never;
+  [P in Exclude<
+    keyof TypeMap['other']['operations'],
+    keyof ExtArgs['client']
+  >]: P extends keyof ClientOtherOps ? ClientOtherOps[P] : never;
 } & {
-  [
-    P in Exclude<ClientBuiltInProp, keyof ExtArgs['client']>
-  ]: DynamicClientExtensionThisBuiltin<TypeMap, TypeMapCb, ExtArgs>[P];
+  [P in Exclude<
+    ClientBuiltInProp,
+    keyof ExtArgs['client']
+  >]: DynamicClientExtensionThisBuiltin<TypeMap, TypeMapCb, ExtArgs>[P];
 } & {
   [K: symbol]: {
     types: TypeMap['other'];
@@ -940,16 +946,15 @@ export declare type DynamicModelExtensionThis<
     ExtArgs['model'][Uncapitalize<M & string>][P]
   >;
 } & {
-  [
-    P in Exclude<
-      keyof TypeMap['model'][M]['operations'],
-      keyof ExtArgs['model'][Uncapitalize<M & string>]
-    >
-  ]: DynamicModelExtensionOperationFn<TypeMap, M, P>;
+  [P in Exclude<
+    keyof TypeMap['model'][M]['operations'],
+    keyof ExtArgs['model'][Uncapitalize<M & string>]
+  >]: DynamicModelExtensionOperationFn<TypeMap, M, P>;
 } & {
-  [
-    P in Exclude<'fields', keyof ExtArgs['model'][Uncapitalize<M & string>]>
-  ]: TypeMap['model'][M]['fields'];
+  [P in Exclude<
+    'fields',
+    keyof ExtArgs['model'][Uncapitalize<M & string>]
+  >]: TypeMap['model'][M]['fields'];
 } & {
   [K: symbol]: {
     types: TypeMap['model'][M];
@@ -970,12 +975,10 @@ export declare type DynamicQueryExtensionArgs<
       }) => Promise<any>
     : K extends '$allModels'
       ? {
-          [
-            P in
-              | keyof Q_[K]
-              | keyof TypeMap['model'][keyof TypeMap['model']]['operations']
-              | '$allOperations'
-          ]?: P extends '$allOperations'
+          [P in
+            | keyof Q_[K]
+            | keyof TypeMap['model'][keyof TypeMap['model']]['operations']
+            | '$allOperations']?: P extends '$allOperations'
             ? DynamicQueryExtensionCb<
                 TypeMap,
                 'model',
@@ -993,12 +996,10 @@ export declare type DynamicQueryExtensionArgs<
         }
       : K extends TypeMap['meta']['modelProps']
         ? {
-            [
-              P in
-                | keyof Q_[K]
-                | keyof TypeMap['model'][ModelKey<TypeMap, K>]['operations']
-                | '$allOperations'
-            ]?: P extends '$allOperations'
+            [P in
+              | keyof Q_[K]
+              | keyof TypeMap['model'][ModelKey<TypeMap, K>]['operations']
+              | '$allOperations']?: P extends '$allOperations'
               ? DynamicQueryExtensionCb<
                   TypeMap,
                   'model',
@@ -1254,7 +1255,10 @@ export declare type Exact<A, W> =
  * string or an object with one of (message or name or code) and optional stack
  */
 declare type Exception =
-  ExceptionWithCode | ExceptionWithMessage | ExceptionWithName | string;
+  | ExceptionWithCode
+  | ExceptionWithMessage
+  | ExceptionWithName
+  | string;
 
 declare interface ExceptionWithCode {
   code: string | number;
@@ -1312,13 +1316,11 @@ export declare interface ExtendsHook<
     },
     M,
     Q_ extends {
-      [
-        K in
-          | TypeMap['meta']['modelProps']
-          | '$allModels'
-          | keyof TypeMap['other']['operations']
-          | '$allOperations'
-      ]?: unknown;
+      [K in
+        | TypeMap['meta']['modelProps']
+        | '$allModels'
+        | keyof TypeMap['other']['operations']
+        | '$allOperations']?: unknown;
     },
     C_ extends {
       [K in string]?: unknown;
@@ -1622,20 +1624,22 @@ export declare type GetFindResult<
               include: infer I extends object;
             } & Record<string, unknown>)
       ? {
-          [
-            K in keyof S | keyof I as (S & I)[K] extends
-              false | undefined | Skip | null
-              ? never
-              : K
-          ]: (S & I)[K] extends object
+          [K in keyof S | keyof I as (S & I)[K] extends
+            | false
+            | undefined
+            | Skip
+            | null
+            ? never
+            : K]: (S & I)[K] extends object
             ? P extends SelectablePayloadFields<K, (infer O)[]>
               ? O extends OperationPayload
                 ? GetFindResult<O, (S & I)[K], GlobalOmitOptions>[]
                 : never
               : P extends SelectablePayloadFields<K, infer O | null>
                 ? O extends OperationPayload
-                  ? | GetFindResult<O, (S & I)[K], GlobalOmitOptions>
-                    | (SelectField<P, K> & null)
+                  ?
+                      | GetFindResult<O, (S & I)[K], GlobalOmitOptions>
+                      | (SelectField<P, K> & null)
                   : never
                 : K extends '_count'
                   ? Count<GetFindResult<P, (S & I)[K], GlobalOmitOptions>>
@@ -1646,8 +1650,9 @@ export declare type GetFindResult<
                 : never
               : P extends SelectablePayloadFields<K, infer O | null>
                 ? O extends OperationPayload
-                  ? | DefaultSelection<O, {}, GlobalOmitOptions>
-                    | (SelectField<P, K> & null)
+                  ?
+                      | DefaultSelection<O, {}, GlobalOmitOptions>
+                      | (SelectField<P, K> & null)
                   : never
                 : P extends {
                       scalars: {
@@ -1698,7 +1703,8 @@ export declare type GetOmit<
   ExtraType = never,
 > = {
   [K in (string extends keyof R ? never : keyof R) | BaseKeys]?:
-    boolean | ExtraType;
+    | boolean
+    | ExtraType;
 };
 
 export declare type GetPayloadResult<
@@ -2360,7 +2366,12 @@ declare type JsonSelectionSet = {
  * Matches any valid JSON value.
  */
 export declare type JsonValue =
-  string | number | boolean | JsonObject | JsonArray | null;
+  | string
+  | number
+  | boolean
+  | JsonObject
+  | JsonArray
+  | null;
 
 export declare type JsOutputValue =
   | null
@@ -2881,7 +2892,8 @@ export { PrismaClientKnownRequestError };
  * Learn more about driver adapters: https://pris.ly/d/driver-adapters
  */
 export declare type PrismaClientOptions =
-  PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter;
+  | PrismaClientOptionsWithAccelerateUrl
+  | PrismaClientOptionsWithAdapter;
 
 /**
  * `PrismaClient` options for connecting to your database through Prisma
@@ -2974,7 +2986,7 @@ declare interface PrismaPromise_2<
    * @param transaction transaction options
    */
   catch<R = never>(
-    onrejected?: ((reason: any) => R | PromiseLike<R>) | undefined | null,
+    onrejected?: ((reason: any) => R | PromiseLike<R>) | null,
     transaction?: PrismaPromiseTransaction,
   ): Promise<TResult | R>;
   /**
@@ -2983,7 +2995,7 @@ declare interface PrismaPromise_2<
    * @param transaction transaction options
    */
   finally(
-    onfinally?: (() => void) | undefined | null,
+    onfinally?: (() => void) | null,
     transaction?: PrismaPromiseTransaction,
   ): Promise<TResult>;
   /**
@@ -3352,7 +3364,9 @@ export declare type RawParameters = {
 };
 
 export declare type RawQueryArgs =
-  Sql | UnknownTypedSql | [query: string, ...values: RawValue[]];
+  | Sql
+  | UnknownTypedSql
+  | [query: string, ...values: RawValue[]];
 
 declare type RawResponse = {
   columns: string[];
@@ -3381,11 +3395,9 @@ declare type Record_2<T extends string | number | symbol, U> = {
 export { Record_2 as Record };
 
 export declare type RenameAndNestPayloadKeys<P> = {
-  [
-    K in keyof P as K extends 'scalars' | 'objects' | 'composites'
-      ? keyof P[K]
-      : never
-  ]: P[K];
+  [K in keyof P as K extends 'scalars' | 'objects' | 'composites'
+    ? keyof P[K]
+    : never]: P[K];
 };
 
 declare type RequestBatchOptions<InteractiveTransactionPayload> = {
@@ -3552,7 +3564,13 @@ declare type RuntimeEnum = Omit<DMMF_2.DatamodelEnum, 'name'>;
 declare type RuntimeModel = Omit<DMMF_2.Model, 'name'>;
 
 declare type RuntimeName =
-  'workerd' | 'deno' | 'netlify' | 'node' | 'bun' | 'edge-light' | '';
+  | 'workerd'
+  | 'deno'
+  | 'netlify'
+  | 'node'
+  | 'bun'
+  | 'edge-light'
+  | '';
 
 declare type Schema = ReadonlyDeep_2<{
   rootQueryType?: string;

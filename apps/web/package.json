@@ -7,7 +7,8 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --max-warnings 0",
+    "lint": "eslint . --max-warnings 0",
+    "lint:style": "stylelint \"**/*.css\" --fix",
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
@@ -30,6 +31,9 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-order": "^8.1.1",
     "typescript": "5.9.2"
   }
 }

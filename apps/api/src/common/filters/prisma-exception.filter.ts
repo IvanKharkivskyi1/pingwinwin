@@ -5,12 +5,13 @@ import {
   ExceptionFilter,
   NotFoundException,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { Prisma } from '@prisma/client';
 
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaExceptionFilter implements ExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
-    const response = host.switchToHttp().getResponse();
+    const response = host.switchToHttp().getResponse<Response>();
 
     if (exception.code === 'P2002') {
       const error = new ConflictException('Email already exists');
