@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter';
+import { resolveCorsOrigin } from './cors';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -28,24 +29,15 @@ async function bootstrap() {
     process.env.FRONTEND_URL,
   ].filter((url): url is string => Boolean(url));
 
-  const allowedOrigins = rawOrigins.map((url) => url.replace(/\/$/, ''));
-
   app.enableCors({
     origin: (origin, callback) => {
-      if (!origin) {
-        return callback(null, true);
+      const allowedOrigin = resolveCorsOrigin(origin, rawOrigins);
+
+      if (allowedOrigin === false) {
+        return callback(new Error('Not allowed by CORS'), false);
       }
 
-      const cleanOrigin = origin.replace(/\/$/, '');
-      const isAllowed =
-        allowedOrigins.includes(cleanOrigin) ||
-        /\.vercel\.app$/.test(cleanOrigin);
-
-      if (isAllowed) {
-        callback(null, true);
-      } else {
-        callback(null, false);
-      }
+      return callback(null, allowedOrigin ?? true);
     },
     credentials: true,
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
