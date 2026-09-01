@@ -11,26 +11,52 @@ import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter'
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.use(helmet());
+  app.getHttpAdapter().getInstance().set('trust proxy', 1);
+
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+      contentSecurityPolicy: false,
+    }),
+  );
+
   app.use(cookieParser());
 
-  const allowedOrigins = [
+  const rawOrigins = [
     'http://localhost:3000',
     'https://pingwinwin.vercel.app',
     process.env.FRONTEND_URL,
   ].filter((url): url is string => Boolean(url));
 
+  const allowedOrigins = rawOrigins.map((url) => url.replace(/\/$/, ''));
+
   app.enableCors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      const cleanOrigin = origin.replace(/\/$/, '');
+      const isAllowed =
+        allowedOrigins.includes(cleanOrigin) ||
+        /\.vercel\.app$/.test(cleanOrigin);
+
+      if (isAllowed) {
         callback(null, true);
       } else {
-        callback(new Error(`CORS blocked for origin: ${origin}`));
+        callback(null, false);
       }
     },
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type, Accept, Authorization',
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+      'Content-Type',
+      'Accept',
+      'Authorization',
+      'X-Requested-With',
+    ],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
 
   app.useStaticAssets(join(__dirname, 'public'));
