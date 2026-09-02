@@ -1,9 +1,9 @@
 'use client';
 
 import { Box, Button, Flex, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
+import { apiFetch, getErrorMessage, logout } from '@lib/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { apiFetch, getErrorMessage, logout } from '../../lib/auth';
 
 type Profile = {
   id: string;

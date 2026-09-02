@@ -1,10 +1,10 @@
 'use client';
 
+import { useColorMode } from '@/providers/color-mode';
 import { Box, Button, Container, Heading, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useColorMode } from './color-mode';
 
-export function HomePage() {
+export default function LandingPage() {
   const { colorMode } = useColorMode();
 
   return (

@@ -1,5 +1,5 @@
-import { AuthLayout } from '../auth-layout/auth-layout';
-import { RegisterForm } from './register-form';
+import { AuthLayout } from '@/features/auth/components/auth-layout';
+import { RegisterForm } from '@/features/auth/components/register-form';
 
 export default function RegisterPage() {
   return (

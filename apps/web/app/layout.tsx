@@ -1,6 +1,6 @@
+import { Provider } from '@/providers/provider';
 import type { Metadata } from 'next';
-import './globals.css';
-import { Provider } from './provider';
+import '../styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'AI Travel Planner',

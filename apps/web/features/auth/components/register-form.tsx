@@ -2,20 +2,21 @@
 
 import { Alert, Button, Field, Fieldset, Input, Stack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { apiFetch, getErrorMessage } from '@lib/auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { apiFetch, getErrorMessage } from '../../lib/auth';
 
-const loginSchema = z.object({
+const registerSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters long'),
+  name: z.string().optional(),
+  password: z.string().min(8, 'Password must be at least 8 characters long'),
 });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type RegisterFormData = z.infer<typeof registerSchema>;
 
-export function LoginForm() {
+export function RegisterForm() {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -23,16 +24,16 @@ export function LoginForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { email: '', name: '', password: '' },
   });
 
-  const onSubmit = async (values: LoginFormData) => {
+  const onSubmit = async (values: RegisterFormData) => {
     setServerError(null);
 
     try {
-      const res = await apiFetch('/auth/login', {
+      const res = await apiFetch('/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -41,12 +42,12 @@ export function LoginForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(getErrorMessage(data, 'Login failed'));
+        throw new Error(getErrorMessage(data, 'Registration failed'));
       }
 
       router.push('/profile');
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'Login failed');
+      setServerError(err instanceof Error ? err.message : 'Registration failed');
     }
   };
 
@@ -67,6 +68,12 @@ export function LoginForm() {
             <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
           </Field.Root>
 
+          <Field.Root invalid={!!errors.name}>
+            <Field.Label>Name</Field.Label>
+            <Input type="text" placeholder="John" {...register('name')} />
+            <Field.ErrorText>{errors.name?.message}</Field.ErrorText>
+          </Field.Root>
+
           <Field.Root invalid={!!errors.password}>
             <Field.Label>Password</Field.Label>
             <Input type="password" placeholder="••••••••" {...register('password')} />
@@ -79,10 +86,10 @@ export function LoginForm() {
             variant="solid"
             width="full"
             loading={isSubmitting}
-            loadingText="Signing in..."
+            loadingText="Registering..."
             mt="2"
           >
-            Sign in
+            Register
           </Button>
         </Stack>
       </Fieldset.Root>

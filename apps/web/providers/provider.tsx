@@ -1,11 +1,11 @@
 'use client';
 
+import { BrandLogo } from '@/components/brand-logo';
+import { ColorModeProvider, useColorMode } from '@/providers/color-mode';
 import { Box, ChakraProvider, IconButton, defaultSystem } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FiMoon, FiSun } from 'react-icons/fi';
-import { ColorModeProvider, useColorMode } from './color-mode';
-import { BrandLogo } from './components/brand-logo';
 
 function HomeButton() {
   return (
