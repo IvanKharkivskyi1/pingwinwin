@@ -2,6 +2,7 @@
 
 import { Box, ChakraProvider, IconButton, defaultSystem } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { FiMoon, FiSun } from 'react-icons/fi';
 import { ColorModeProvider, useColorMode } from './color-mode';
 import { BrandLogo } from './components/brand-logo';
@@ -18,6 +19,16 @@ function HomeButton() {
 
 function ThemeToggle() {
   const { colorMode, toggleColorMode } = useColorMode();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   const isDark = colorMode === 'dark';
 
   return (

@@ -1,8 +1,6 @@
-'use client';
-
 import { Card, Center, Heading, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { BrandLogo } from '../components/brand-logo';
 
 interface AuthLayoutProps {
