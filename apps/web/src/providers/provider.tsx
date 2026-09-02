@@ -2,7 +2,7 @@
 
 import { BrandLogo } from '@/components/brand-logo';
 import { ColorModeProvider, useColorMode } from '@/providers/color-mode';
-import { Box, ChakraProvider, IconButton, defaultSystem } from '@chakra-ui/react';
+import { Box, Button, ChakraProvider, IconButton, Text, defaultSystem } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FiMoon, FiSun } from 'react-icons/fi';
@@ -10,9 +10,10 @@ import { FiMoon, FiSun } from 'react-icons/fi';
 function HomeButton() {
   return (
     <Link href="/" aria-label="Go to homepage">
-      <IconButton variant="outline" size="lg" rounded="full" aria-label="Go to homepage">
-        <BrandLogo size={20} />
-      </IconButton>
+      <Button variant="outline" aria-label="Go to homepage" bg="teal.500" pointerEvents="auto">
+        <BrandLogo size={50} />
+        <Text ml={2}>Pinguin Wing</Text>
+      </Button>
     </Link>
   );
 }
@@ -32,7 +33,7 @@ function ThemeToggle() {
   const isDark = colorMode === 'dark';
 
   return (
-    <Box position="fixed" width="100%" zIndex={1000} p={4}>
+    <Box position="fixed" width="100%" zIndex={1000} p={4} pointerEvents="none">
       <Box display="flex" alignItems="center" justifyContent="space-between" gap="3">
         <HomeButton />
         <IconButton
@@ -42,6 +43,7 @@ function ThemeToggle() {
           rounded="full"
           onClick={toggleColorMode}
           colorPalette={isDark ? 'yellow' : 'blue'}
+          pointerEvents="auto"
         >
           {isDark ? <FiSun /> : <FiMoon />}
         </IconButton>

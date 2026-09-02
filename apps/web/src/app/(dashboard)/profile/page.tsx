@@ -58,7 +58,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <Box as="main" p={6} maxW="md" mx="auto">
+    <Box as="main" px={6} maxW="md" mx="auto">
       <VStack align="start" gap={4}>
         <Heading as="h1" size="xl">
           Profile

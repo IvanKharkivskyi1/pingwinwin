@@ -14,10 +14,14 @@ export default function LandingPage() {
       bg={colorMode === 'dark' ? 'gray.900' : 'gray.50'}
       color={colorMode === 'dark' ? 'white' : 'gray.900'}
       px={6}
-      py={16}
     >
       <Container maxW="lg">
         <Stack gap={8} align="flex-start">
+          <Link href="/dashboard" passHref>
+            <Button variant="outline" size="lg">
+              dashboard
+            </Button>
+          </Link>
           <Heading as="h1" size="2xl">
             Pinguin Wing
           </Heading>

@@ -45,7 +45,7 @@ export function RegisterForm() {
         throw new Error(getErrorMessage(data, 'Registration failed'));
       }
 
-      router.push('/profile');
+      router.push('/dashboard');
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Registration failed');
     }

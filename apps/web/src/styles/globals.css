@@ -36,3 +36,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+main {
+  padding-block: 80px;
+}
