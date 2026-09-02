@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { ComponentProps } from 'react';
 
-const LOGO_SRC = 'https://j0r5rfqfy848ahyl.public.blob.vercel-storage.com/logo/logo.webp?v=2';
+const LOGO_SRC = 'https://j0r5rfqfy848ahyl.public.blob.vercel-storage.com/logo/logo.png?v=2';
 
 interface BrandLogoProps extends Omit<
   ComponentProps<typeof Image>,
