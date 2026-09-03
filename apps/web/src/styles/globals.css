@@ -14,6 +14,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
   min-height: 100%;
   max-width: 100vw;
   overflow-x: hidden;
@@ -23,6 +24,7 @@ body {
 
 body {
   min-height: 100vh;
+  overflow-y: auto;
   background: var(--page-bg);
   color: var(--page-fg);
   font-family: var(--font-inter), Arial, sans-serif;
@@ -38,5 +40,11 @@ a {
 }
 
 main {
-  padding-block: 80px;
+  padding-block: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

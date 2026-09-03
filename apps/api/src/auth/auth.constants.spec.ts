@@ -21,4 +21,15 @@ describe('accessTokenCookieOptions', () => {
       path: '/',
     });
   });
+
+  it('uses local-development cookies on localhost http', () => {
+    process.env.NODE_ENV = 'development';
+
+    expect(accessTokenCookieOptions()).toMatchObject({
+      httpOnly: true,
+      secure: false,
+      sameSite: 'lax',
+      path: '/',
+    });
+  });
 });

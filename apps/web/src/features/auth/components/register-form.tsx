@@ -1,8 +1,9 @@
 'use client';
 
+import { triggerAuthChange } from '@/lib/use-auth-status';
 import { Alert, Button, Field, Fieldset, Input, Stack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { apiFetch, getErrorMessage } from '@lib/auth';
+import { apiFetch, getErrorMessage, setStoredAuthSession } from '@lib/auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -45,7 +46,9 @@ export function RegisterForm() {
         throw new Error(getErrorMessage(data, 'Registration failed'));
       }
 
-      router.push('/dashboard');
+      setStoredAuthSession(true);
+      triggerAuthChange();
+      router.push('/');
     } catch (err) {
       setServerError(err instanceof Error ? err.message : 'Registration failed');
     }

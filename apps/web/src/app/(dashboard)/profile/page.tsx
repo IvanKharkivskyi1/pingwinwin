@@ -1,5 +1,6 @@
 'use client';
 
+import { triggerAuthChange } from '@/lib/use-auth-status';
 import { Box, Button, Flex, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
 import { apiFetch, getErrorMessage, logout } from '@lib/auth';
 import { useRouter } from 'next/navigation';
@@ -46,7 +47,8 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     await logout();
-    router.push('/login');
+    triggerAuthChange();
+    router.push('/');
   };
 
   if (!mounted || !profile) {
