@@ -1,7 +1,9 @@
 'use client';
 
 import { BrandLogo } from '@/components/brand-logo';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { VisitCounter } from '@/components/VisitCounter';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { triggerAuthChange, useAuthStatus } from '@/lib/use-auth-status';
 import { useColorMode } from '@/providers/color-mode';
 import {
@@ -23,18 +25,25 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { logout } from '@lib/auth';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { FiChevronDown, FiMoon, FiSun, FiUser } from 'react-icons/fi';
 
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/trips', label: 'Trips' },
-  { href: '/favorites', label: 'Favorites' },
-  { href: '/chat', label: 'Chat' },
-];
+  { href: '/', key: 'home' },
+  { href: '/trips', key: 'trips' },
+  { href: '/favorites', key: 'favorites' },
+  { href: '/chat', key: 'chat' },
+] as const;
 
-function AuthenticatedNav({ pathname }: { pathname: string }) {
+type NavItemKey = (typeof navItems)[number]['key'];
+
+function AuthenticatedNav({
+  pathname,
+  labels,
+}: {
+  pathname: string;
+  labels: Record<NavItemKey, string>;
+}) {
   return (
     <HStack gap={2} display={{ base: 'none', md: 'flex' }} wrap="wrap">
       {navItems.map((item) => {
@@ -49,7 +58,7 @@ function AuthenticatedNav({ pathname }: { pathname: string }) {
             size="sm"
             colorPalette={isActive ? 'teal' : 'gray'}
           >
-            <Link href={item.href}>{item.label}</Link>
+            <Link href={item.href}>{labels[item.key]}</Link>
           </Button>
         );
       })}
@@ -58,12 +67,15 @@ function AuthenticatedNav({ pathname }: { pathname: string }) {
 }
 
 export function AppHeader() {
+  const t = useTranslations('Header');
+  const commonT = useTranslations('Common');
   const pathname = usePathname();
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const { user, isAuthenticated, loading, refresh } = useAuthStatus();
 
-  const displayName = user?.name?.trim() || user?.email?.split('@')[0] || 'Traveler';
+  const displayName =
+    user?.name?.trim() || user?.email?.split('@')[0] || commonT('guestNameFallback');
 
   const handleLogout = async () => {
     try {
@@ -93,25 +105,35 @@ export function AppHeader() {
     >
       <Container maxW="7xl" py={3}>
         <Flex align="center" justify="space-between" gap={4}>
-          <Link href="/" aria-label="Go to the homepage">
+          <Link href="/" aria-label={t('homeLinkAria')}>
             <Flex align="center" gap={3}>
               <BrandLogo size={36} />
               <Text fontWeight="bold" fontSize="lg">
-                Pinguin Wing
+                {commonT('brandName')}
               </Text>
             </Flex>
           </Link>
           <div>
-            Visitors: <VisitCounter />
+            {t('visitors')}: <VisitCounter />
           </div>
 
           {!loading && isAuthenticated ? (
             <>
-              <AuthenticatedNav pathname={pathname} />
+              <AuthenticatedNav
+                pathname={pathname}
+                labels={{
+                  home: t('home'),
+                  trips: t('trips'),
+                  favorites: t('favorites'),
+                  chat: t('chat'),
+                }}
+              />
 
               <HStack gap={2}>
+                <LanguageSwitcher />
+
                 <IconButton
-                  aria-label={colorMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                  aria-label={colorMode === 'dark' ? t('switchToLightMode') : t('switchToDarkMode')}
                   variant="outline"
                   size="sm"
                   rounded="full"
@@ -149,11 +171,11 @@ export function AppHeader() {
                           <MenuItem value="profile" onClick={() => router.push('/profile')}>
                             <Text as="span" display="flex" alignItems="center" gap={2}>
                               <FiUser />
-                              Profile
+                              {t('profile')}
                             </Text>
                           </MenuItem>
                           <MenuItem value="logout" onClick={handleLogout}>
-                            Logout
+                            {t('logout')}
                           </MenuItem>
                         </MenuItemGroup>
                       </MenuContent>
@@ -164,8 +186,10 @@ export function AppHeader() {
             </>
           ) : (
             <HStack gap={2}>
+              <LanguageSwitcher />
+
               <IconButton
-                aria-label={colorMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                aria-label={colorMode === 'dark' ? t('switchToLightMode') : t('switchToDarkMode')}
                 variant="outline"
                 size="sm"
                 rounded="full"
@@ -177,12 +201,12 @@ export function AppHeader() {
 
               <Link href="/login">
                 <Button variant="ghost" size="sm">
-                  Login
+                  {t('login')}
                 </Button>
               </Link>
               <Link href="/register">
                 <Button colorPalette="teal" size="sm">
-                  Register
+                  {t('register')}
                 </Button>
               </Link>
             </HStack>

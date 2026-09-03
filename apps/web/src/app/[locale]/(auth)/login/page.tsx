@@ -2,12 +2,14 @@
 
 import { AuthLayout } from '@/features/auth/components/auth-layout';
 import { LoginForm } from '@/features/auth/components/login-form';
+import { useRouter } from '@/i18n/navigation';
 import { useAuthStatus } from '@/lib/use-auth-status';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 export default function LoginPage() {
   const router = useRouter();
+  const t = useTranslations('LoginPage');
   const { isAuthenticated, loading } = useAuthStatus();
 
   useEffect(() => {
@@ -22,9 +24,9 @@ export default function LoginPage() {
 
   return (
     <AuthLayout
-      title="Login"
-      footerText="You don't have an account?"
-      footerLinkText="Register"
+      title={t('title')}
+      footerText={t('footerText')}
+      footerLinkText={t('footerLinkText')}
       footerLinkHref="/register"
     >
       <LoginForm />

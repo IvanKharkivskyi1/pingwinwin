@@ -3,22 +3,28 @@
 import { triggerAuthChange } from '@/lib/use-auth-status';
 import { Alert, Button, Field, Fieldset, Input, Stack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from '@/i18n/navigation';
 import { apiFetch, getErrorMessage, setStoredAuthSession } from '@lib/auth';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const loginSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters long'),
-});
-
-type LoginFormData = z.infer<typeof loginSchema>;
+type LoginFormData = { email: string; password: string };
 
 export function LoginForm() {
   const router = useRouter();
+  const t = useTranslations('LoginForm');
   const [serverError, setServerError] = useState<string | null>(null);
+
+  const loginSchema = useMemo(
+    () =>
+      z.object({
+        email: z.string().min(1, t('emailRequired')).email(t('emailInvalid')),
+        password: z.string().min(6, t('passwordMin')),
+      }),
+    [t],
+  );
 
   const {
     register,
@@ -42,14 +48,14 @@ export function LoginForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(getErrorMessage(data, 'Login failed'));
+        throw new Error(getErrorMessage(data, t('failed')));
       }
 
       setStoredAuthSession(true);
       triggerAuthChange();
       router.push('/');
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'Login failed');
+      setServerError(err instanceof Error ? err.message : t('failed'));
     }
   };
 
@@ -65,13 +71,13 @@ export function LoginForm() {
           )}
 
           <Field.Root invalid={!!errors.email}>
-            <Field.Label>Email</Field.Label>
-            <Input type="email" placeholder="name@example.com" {...register('email')} />
+            <Field.Label>{t('emailLabel')}</Field.Label>
+            <Input type="email" placeholder={t('emailPlaceholder')} {...register('email')} />
             <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
           </Field.Root>
 
           <Field.Root invalid={!!errors.password}>
-            <Field.Label>Password</Field.Label>
+            <Field.Label>{t('passwordLabel')}</Field.Label>
             <Input type="password" placeholder="••••••••" {...register('password')} />
             <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
           </Field.Root>
@@ -82,10 +88,10 @@ export function LoginForm() {
             variant="solid"
             width="full"
             loading={isSubmitting}
-            loadingText="Signing in..."
+            loadingText={t('signingIn')}
             mt="2"
           >
-            Sign in
+            {t('signIn')}
           </Button>
         </Stack>
       </Fieldset.Root>

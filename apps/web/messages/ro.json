@@ -1,0 +1,132 @@
+{
+  "Metadata": {
+    "title": "Planificator de călătorii AI",
+    "description": "Planifică călătorii cu un agent AI de călătorii"
+  },
+  "Common": {
+    "brandName": "Pinguin Wing",
+    "brandAlt": "Logo Pingwinwin",
+    "guestNameFallback": "Călător"
+  },
+  "Header": {
+    "home": "Acasă",
+    "trips": "Călătorii",
+    "favorites": "Favorite",
+    "chat": "Chat",
+    "homeLinkAria": "Mergi la pagina principală",
+    "switchToLightMode": "Comută la tema luminoasă",
+    "switchToDarkMode": "Comută la tema întunecată",
+    "login": "Autentificare",
+    "register": "Înregistrare",
+    "profile": "Profil",
+    "logout": "Deconectare",
+    "visitors": "Vizitatori",
+    "languageSwitcherLabel": "Schimbă limba"
+  },
+  "LandingPage": {
+    "headline": "Planificare AI pentru următoarea ta călătorie de neuitat.",
+    "description": "Descoperă idei de destinații, compară opțiuni și construiește un plan de călătorie cu un asistent AI care îți menține preferințele sincronizate.",
+    "startPlanning": "Începe planificarea",
+    "login": "Autentificare",
+    "travelerCount": "<strong>12.000+</strong> călători",
+    "rating": "<strong>4.9/5</strong> rating de la călători",
+    "plannerLabel": "Planificator rapid de călătorii",
+    "destinationLabel": "Destinație",
+    "destinationPlaceholder": "Kiev, Paris, Tokyo",
+    "travelDatesLabel": "Datele călătoriei",
+    "tripDurationLabel": "Durata călătoriei",
+    "tripDurationPlaceholder": "5 zile",
+    "buildItinerary": "Construiește itinerariul",
+    "features": {
+      "tripPlanning": {
+        "title": "Planificarea călătoriilor",
+        "text": "Construiește un itinerar personalizat în câteva minute."
+      },
+      "aiAssistant": {
+        "title": "Asistent AI de călătorie",
+        "text": "Primește sugestii inteligente pentru rute, cazare și idei."
+      },
+      "savedFavorites": {
+        "title": "Favorite salvate",
+        "text": "Păstrează destinațiile, cazările și ideile pe care le îndrăgești."
+      }
+    }
+  },
+  "Dashboard": {
+    "welcomeBack": "Bine ai revenit, {name}",
+    "readyToPlan": "Gata să planifici următoarea călătorie?",
+    "heroText": "Transformă ideile într-un itinerar memorabil cu sugestii AI, comparații rapide și favorite salvate.",
+    "planNewTrip": "Planifică o nouă călătorie",
+    "startPlanning": "Începe planificarea",
+    "destination": "Destinație",
+    "departureDate": "Data plecării",
+    "tripDuration": "Durată",
+    "search": "Caută",
+    "myTrips": "Călătoriile mele",
+    "myTripsEmpty": "Nu ai planificat încă nicio călătorie.",
+    "savedDestinations": "Destinații salvate",
+    "savedDestinationsEmpty": "Nu există încă destinații salvate.",
+    "recentChats": "Conversații AI recente",
+    "recentChatsEmpty": "Nu există încă conversații.",
+    "upcomingTrip": "Călătorie viitoare",
+    "upcomingTripEmpty": "Nu există călătorii viitoare."
+  },
+  "LoginPage": {
+    "title": "Autentificare",
+    "footerText": "Nu ai un cont?",
+    "footerLinkText": "Înregistrează-te"
+  },
+  "RegisterPage": {
+    "title": "Înregistrare",
+    "footerText": "Ai deja un cont?",
+    "footerLinkText": "Autentifică-te"
+  },
+  "LoginForm": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "emailRequired": "Emailul este obligatoriu",
+    "emailInvalid": "Te rugăm să introduci o adresă de email validă",
+    "passwordLabel": "Parolă",
+    "passwordMin": "Parola trebuie să aibă cel puțin 6 caractere",
+    "signingIn": "Se autentifică...",
+    "signIn": "Autentifică-te",
+    "failed": "Autentificare eșuată"
+  },
+  "RegisterForm": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "emailRequired": "Emailul este obligatoriu",
+    "emailInvalid": "Te rugăm să introduci o adresă de email validă",
+    "nameLabel": "Nume",
+    "namePlaceholder": "Ion",
+    "passwordLabel": "Parolă",
+    "passwordMin": "Parola trebuie să aibă cel puțin 8 caractere",
+    "registering": "Se înregistrează...",
+    "register": "Înregistrează-te",
+    "failed": "Înregistrarea a eșuat"
+  },
+  "NotFound": {
+    "title": "404",
+    "message": "Această pagină nu a putut fi găsită.",
+    "backHome": "Înapoi la pagina principală"
+  },
+  "TripsPage": {
+    "title": "Călătorii",
+    "description": "Itinerarele tale salvate și aventurile viitoare vor apărea aici."
+  },
+  "FavoritesPage": {
+    "title": "Favorite",
+    "description": "Salvează destinațiile, hotelurile și experiențele la care vrei să te întorci."
+  },
+  "ChatPage": {
+    "title": "Asistent AI de călătorie",
+    "description": "Istoricul tău de chat și recomandările vor apărea aici."
+  },
+  "ProfilePage": {
+    "title": "Profil",
+    "emailLabel": "Email",
+    "name": "Nume",
+    "logOut": "Deconectare",
+    "loadFailed": "Nu s-a putut încărca profilul"
+  }
+}

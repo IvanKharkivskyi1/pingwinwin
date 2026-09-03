@@ -1,6 +1,7 @@
 'use client';
 
 import { DashboardCard } from '@/features/dashboard/components/dashboard-card';
+import { Link } from '@/i18n/navigation';
 import { useAuthStatus, type AuthUser } from '@/lib/use-auth-status';
 import {
   Box,
@@ -15,11 +16,13 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { FiCalendar, FiStar, FiClock, FiCheckCircle } from 'react-icons/fi';
 
 export function TravelDashboardContent({ user }: { user: AuthUser | null }) {
-  const greeting = user?.name?.trim() || user?.email?.split('@')[0] || 'Traveler';
+  const t = useTranslations('Dashboard');
+  const commonT = useTranslations('Common');
+  const greeting = user?.name?.trim() || user?.email?.split('@')[0] || commonT('guestNameFallback');
 
   return (
     <Container maxW="6xl" px={6} py={10}>
@@ -34,19 +37,18 @@ export function TravelDashboardContent({ user }: { user: AuthUser | null }) {
           <HStack justify="space-between" align="start" gap={4} wrap="wrap">
             <VStack align="start" gap={3}>
               <Text textStyle="sm" color="teal.500" fontWeight="semibold">
-                Welcome back, {greeting}
+                {t('welcomeBack', { name: greeting })}
               </Text>
               <Heading as="h1" size="lg">
-                Ready to plan your next trip?
+                {t('readyToPlan')}
               </Heading>
               <Text maxW="2xl" color="fg.muted">
-                Turn ideas into a memorable itinerary with AI suggestions, quick comparisons, and
-                saved favorites.
+                {t('heroText')}
               </Text>
             </VStack>
 
             <Button asChild colorPalette="teal" size="lg">
-              <Link href="/trips">Plan a new trip</Link>
+              <Link href="/trips">{t('planNewTrip')}</Link>
             </Button>
           </HStack>
         </Box>
@@ -60,51 +62,47 @@ export function TravelDashboardContent({ user }: { user: AuthUser | null }) {
         >
           <VStack align="stretch" gap={4}>
             <Heading as="h2" size="md">
-              Start planning
+              {t('startPlanning')}
             </Heading>
             <HStack gap={3} wrap="wrap">
               <Input
-                placeholder="Destination"
-                aria-label="Destination"
+                placeholder={t('destination')}
+                aria-label={t('destination')}
                 width={{ base: '100%', md: '220px' }}
               />
               <Input
                 type="date"
-                aria-label="Departure date"
+                aria-label={t('departureDate')}
                 width={{ base: '100%', md: '200px' }}
               />
               <Input
-                placeholder="Duration"
-                aria-label="Trip duration"
+                placeholder={t('tripDuration')}
+                aria-label={t('tripDuration')}
                 width={{ base: '100%', md: '160px' }}
               />
               <Button colorPalette="teal" flexShrink={0}>
-                Search
+                {t('search')}
               </Button>
             </HStack>
           </VStack>
         </Box>
 
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={4} width="100%">
-          <DashboardCard
-            icon={FiCalendar}
-            title="My Trips"
-            emptyMessage="You haven't planned any trips yet."
-          />
+          <DashboardCard icon={FiCalendar} title={t('myTrips')} emptyMessage={t('myTripsEmpty')} />
           <DashboardCard
             icon={FiStar}
-            title="Saved destinations"
-            emptyMessage="No saved destinations yet."
+            title={t('savedDestinations')}
+            emptyMessage={t('savedDestinationsEmpty')}
           />
           <DashboardCard
             icon={FiClock}
-            title="Recent AI conversations"
-            emptyMessage="No conversations yet."
+            title={t('recentChats')}
+            emptyMessage={t('recentChatsEmpty')}
           />
           <DashboardCard
             icon={FiCheckCircle}
-            title="Upcoming trip"
-            emptyMessage="No upcoming trips."
+            title={t('upcomingTrip')}
+            emptyMessage={t('upcomingTripEmpty')}
           />
         </SimpleGrid>
       </VStack>

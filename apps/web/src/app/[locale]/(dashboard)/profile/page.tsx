@@ -1,9 +1,10 @@
 'use client';
 
 import { triggerAuthChange } from '@/lib/use-auth-status';
+import { useRouter } from '@/i18n/navigation';
 import { Box, Button, Flex, Heading, Spinner, Text, VStack } from '@chakra-ui/react';
 import { apiFetch, getErrorMessage, logout } from '@lib/auth';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 type Profile = {
@@ -14,6 +15,7 @@ type Profile = {
 
 export default function ProfilePage() {
   const router = useRouter();
+  const t = useTranslations('ProfilePage');
   const [profile, setProfile] = useState<Profile | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -32,18 +34,18 @@ export default function ProfilePage() {
         const data = await res.json();
 
         if (!res.ok) {
-          throw new Error(getErrorMessage(data, 'Failed to load profile'));
+          throw new Error(getErrorMessage(data, t('loadFailed')));
         }
 
         setProfile(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load profile');
+        setError(err instanceof Error ? err.message : t('loadFailed'));
         router.replace('/login');
       }
     };
 
     void loadProfile();
-  }, [mounted, router]);
+  }, [mounted, router, t]);
 
   const handleLogout = async () => {
     await logout();
@@ -63,16 +65,20 @@ export default function ProfilePage() {
     <Box as="main" px={6} maxW="md" mx="auto">
       <VStack align="start" gap={4}>
         <Heading as="h1" size="xl">
-          Profile
+          {t('title')}
         </Heading>
 
         {error && <Text color="red.500">{error}</Text>}
 
-        <Text>Email: {profile.email}</Text>
-        <Text>Name: {profile.name ?? '—'}</Text>
+        <Text>
+          {t('emailLabel')}: {profile.email}
+        </Text>
+        <Text>
+          {t('name')}: {profile.name ?? '—'}
+        </Text>
 
         <Button type="button" onClick={handleLogout} colorPalette="cyan">
-          Log out
+          {t('logOut')}
         </Button>
       </VStack>
     </Box>

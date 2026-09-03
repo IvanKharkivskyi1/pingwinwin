@@ -2,8 +2,10 @@
 
 import { useRequireAuth } from '@/lib/use-auth-status';
 import { Box, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
+import { useTranslations } from 'next-intl';
 
-export default function FavoritesPage() {
+export default function ChatPage() {
+  const t = useTranslations('ChatPage');
   const { isReady, loading } = useRequireAuth();
 
   if (loading) {
@@ -21,11 +23,9 @@ export default function FavoritesPage() {
   return (
     <Box as="main" maxW="6xl" mx="auto" px={6} py={10}>
       <Heading as="h1" size="xl" mb={3}>
-        Favorites
+        {t('title')}
       </Heading>
-      <Text color="fg.muted">
-        Save the destinations, hotels, and experiences you want to revisit.
-      </Text>
+      <Text color="fg.muted">{t('description')}</Text>
     </Box>
   );
 }

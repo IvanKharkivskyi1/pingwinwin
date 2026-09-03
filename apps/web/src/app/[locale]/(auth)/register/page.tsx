@@ -2,12 +2,14 @@
 
 import { AuthLayout } from '@/features/auth/components/auth-layout';
 import { RegisterForm } from '@/features/auth/components/register-form';
+import { useRouter } from '@/i18n/navigation';
 import { useAuthStatus } from '@/lib/use-auth-status';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const t = useTranslations('RegisterPage');
   const { isAuthenticated, loading } = useAuthStatus();
 
   useEffect(() => {
@@ -22,9 +24,9 @@ export default function RegisterPage() {
 
   return (
     <AuthLayout
-      title="Register"
-      footerText="Already have an account?"
-      footerLinkText="Login"
+      title={t('title')}
+      footerText={t('footerText')}
+      footerLinkText={t('footerLinkText')}
       footerLinkHref="/login"
     >
       <RegisterForm />

@@ -1,0 +1,132 @@
+{
+  "Metadata": {
+    "title": "AI Travel Planner",
+    "description": "Plan trips with an AI travel agent"
+  },
+  "Common": {
+    "brandName": "Pinguin Wing",
+    "brandAlt": "Pingwinwin logo",
+    "guestNameFallback": "Traveler"
+  },
+  "Header": {
+    "home": "Home",
+    "trips": "Trips",
+    "favorites": "Favorites",
+    "chat": "Chat",
+    "homeLinkAria": "Go to the homepage",
+    "switchToLightMode": "Switch to light mode",
+    "switchToDarkMode": "Switch to dark mode",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "logout": "Logout",
+    "visitors": "Visitors",
+    "languageSwitcherLabel": "Change language"
+  },
+  "LandingPage": {
+    "headline": "AI travel planning for your next unforgettable trip.",
+    "description": "Discover destination ideas, compare options, and build a trip plan with an AI travel assistant that keeps your preferences in sync.",
+    "startPlanning": "Start planning",
+    "login": "Login",
+    "travelerCount": "<strong>12k+</strong> travelers",
+    "rating": "<strong>4.9/5</strong> traveler rating",
+    "plannerLabel": "Quick trip planner",
+    "destinationLabel": "Destination",
+    "destinationPlaceholder": "Kyiv, Paris, Tokyo",
+    "travelDatesLabel": "Travel dates",
+    "tripDurationLabel": "Trip duration",
+    "tripDurationPlaceholder": "5 days",
+    "buildItinerary": "Build my itinerary",
+    "features": {
+      "tripPlanning": {
+        "title": "Trip planning",
+        "text": "Build a personalized itinerary in minutes."
+      },
+      "aiAssistant": {
+        "title": "AI travel assistant",
+        "text": "Get smart suggestions for routes, stays, and ideas."
+      },
+      "savedFavorites": {
+        "title": "Saved favorites",
+        "text": "Keep the destinations, stays, and ideas you love."
+      }
+    }
+  },
+  "Dashboard": {
+    "welcomeBack": "Welcome back, {name}",
+    "readyToPlan": "Ready to plan your next trip?",
+    "heroText": "Turn ideas into a memorable itinerary with AI suggestions, quick comparisons, and saved favorites.",
+    "planNewTrip": "Plan a new trip",
+    "startPlanning": "Start planning",
+    "destination": "Destination",
+    "departureDate": "Departure date",
+    "tripDuration": "Trip duration",
+    "search": "Search",
+    "myTrips": "My Trips",
+    "myTripsEmpty": "You haven't planned any trips yet.",
+    "savedDestinations": "Saved destinations",
+    "savedDestinationsEmpty": "No saved destinations yet.",
+    "recentChats": "Recent AI conversations",
+    "recentChatsEmpty": "No conversations yet.",
+    "upcomingTrip": "Upcoming trip",
+    "upcomingTripEmpty": "No upcoming trips."
+  },
+  "LoginPage": {
+    "title": "Login",
+    "footerText": "You don't have an account?",
+    "footerLinkText": "Register"
+  },
+  "RegisterPage": {
+    "title": "Register",
+    "footerText": "Already have an account?",
+    "footerLinkText": "Login"
+  },
+  "LoginForm": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email address",
+    "passwordLabel": "Password",
+    "passwordMin": "Password must be at least 6 characters long",
+    "signingIn": "Signing in...",
+    "signIn": "Sign in",
+    "failed": "Login failed"
+  },
+  "RegisterForm": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email address",
+    "nameLabel": "Name",
+    "namePlaceholder": "John",
+    "passwordLabel": "Password",
+    "passwordMin": "Password must be at least 8 characters long",
+    "registering": "Registering...",
+    "register": "Register",
+    "failed": "Registration failed"
+  },
+  "NotFound": {
+    "title": "404",
+    "message": "This page could not be found.",
+    "backHome": "Go back home"
+  },
+  "TripsPage": {
+    "title": "Trips",
+    "description": "Your saved itineraries and upcoming adventures will appear here."
+  },
+  "FavoritesPage": {
+    "title": "Favorites",
+    "description": "Save the destinations, hotels, and experiences you want to revisit."
+  },
+  "ChatPage": {
+    "title": "AI Travel Assistant",
+    "description": "Your travel chat history and recommendations will appear here."
+  },
+  "ProfilePage": {
+    "title": "Profile",
+    "emailLabel": "Email",
+    "name": "Name",
+    "logOut": "Log out",
+    "loadFailed": "Failed to load profile"
+  }
+}

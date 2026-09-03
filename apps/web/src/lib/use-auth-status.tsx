@@ -1,7 +1,7 @@
 'use client';
 
+import { useRouter } from '@/i18n/navigation';
 import { apiFetch, hasStoredAuthSession, setStoredAuthSession } from '@lib/auth';
-import { useRouter } from 'next/navigation';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 export type AuthUser = {

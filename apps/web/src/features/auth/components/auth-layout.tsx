@@ -1,6 +1,6 @@
 import { BrandLogo } from '@/components/brand-logo';
+import { Link } from '@/i18n/navigation';
 import { Card, Heading, Text, VStack } from '@chakra-ui/react';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 interface AuthLayoutProps {
@@ -11,7 +11,7 @@ interface AuthLayoutProps {
   footerLinkHref: string;
 }
 
-// Card.Root shell is provided by app/(auth)/layout.tsx
+// Card.Root shell is provided by app/[locale]/(auth)/layout.tsx
 export function AuthLayout({
   title,
   children,

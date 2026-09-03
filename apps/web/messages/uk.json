@@ -1,0 +1,132 @@
+{
+  "Metadata": {
+    "title": "AI-планер подорожей",
+    "description": "Плануйте подорожі з AI-агентом"
+  },
+  "Common": {
+    "brandName": "Pinguin Wing",
+    "brandAlt": "Логотип Pingwinwin",
+    "guestNameFallback": "Мандрівник"
+  },
+  "Header": {
+    "home": "Головна",
+    "trips": "Подорожі",
+    "favorites": "Обране",
+    "chat": "Чат",
+    "homeLinkAria": "Перейти на головну сторінку",
+    "switchToLightMode": "Перемкнути на світлу тему",
+    "switchToDarkMode": "Перемкнути на темну тему",
+    "login": "Увійти",
+    "register": "Реєстрація",
+    "profile": "Профіль",
+    "logout": "Вийти",
+    "visitors": "Відвідувачі",
+    "languageSwitcherLabel": "Змінити мову"
+  },
+  "LandingPage": {
+    "headline": "AI-планування подорожей для вашої наступної незабутньої пригоди.",
+    "description": "Відкривайте ідеї напрямків, порівнюйте варіанти та будуйте план подорожі з AI-помічником, який тримає ваші вподобання в курсі справ.",
+    "startPlanning": "Почати планування",
+    "login": "Увійти",
+    "travelerCount": "<strong>12 тис.+</strong> мандрівників",
+    "rating": "<strong>4.9/5</strong> рейтинг мандрівників",
+    "plannerLabel": "Швидкий планувальник подорожей",
+    "destinationLabel": "Напрямок",
+    "destinationPlaceholder": "Київ, Париж, Токіо",
+    "travelDatesLabel": "Дати подорожі",
+    "tripDurationLabel": "Тривалість подорожі",
+    "tripDurationPlaceholder": "5 днів",
+    "buildItinerary": "Створити маршрут",
+    "features": {
+      "tripPlanning": {
+        "title": "Планування подорожей",
+        "text": "Створіть персоналізований маршрут за лічені хвилини."
+      },
+      "aiAssistant": {
+        "title": "AI-помічник для подорожей",
+        "text": "Отримуйте розумні пропозиції щодо маршрутів, житла та ідей."
+      },
+      "savedFavorites": {
+        "title": "Збережене",
+        "text": "Зберігайте напрямки, житло та ідеї, які вам до вподоби."
+      }
+    }
+  },
+  "Dashboard": {
+    "welcomeBack": "З поверненням, {name}",
+    "readyToPlan": "Готові спланувати наступну подорож?",
+    "heroText": "Перетворюйте ідеї на незабутній маршрут з AI-пропозиціями, швидкими порівняннями та збереженим обраним.",
+    "planNewTrip": "Спланувати нову подорож",
+    "startPlanning": "Почати планування",
+    "destination": "Напрямок",
+    "departureDate": "Дата виїзду",
+    "tripDuration": "Тривалість",
+    "search": "Пошук",
+    "myTrips": "Мої подорожі",
+    "myTripsEmpty": "Ви ще не планували жодних подорожей.",
+    "savedDestinations": "Збережені напрямки",
+    "savedDestinationsEmpty": "Збережених напрямків ще немає.",
+    "recentChats": "Нещодавні AI-розмови",
+    "recentChatsEmpty": "Розмов ще немає.",
+    "upcomingTrip": "Найближча подорож",
+    "upcomingTripEmpty": "Найближчих подорожей немає."
+  },
+  "LoginPage": {
+    "title": "Вхід",
+    "footerText": "Немає облікового запису?",
+    "footerLinkText": "Зареєструватися"
+  },
+  "RegisterPage": {
+    "title": "Реєстрація",
+    "footerText": "Вже маєте обліковий запис?",
+    "footerLinkText": "Увійти"
+  },
+  "LoginForm": {
+    "emailLabel": "Електронна пошта",
+    "emailPlaceholder": "name@example.com",
+    "emailRequired": "Електронна пошта є обов'язковою",
+    "emailInvalid": "Введіть дійсну адресу електронної пошти",
+    "passwordLabel": "Пароль",
+    "passwordMin": "Пароль має містити щонайменше 6 символів",
+    "signingIn": "Вхід у систему...",
+    "signIn": "Увійти",
+    "failed": "Не вдалося увійти"
+  },
+  "RegisterForm": {
+    "emailLabel": "Електронна пошта",
+    "emailPlaceholder": "name@example.com",
+    "emailRequired": "Електронна пошта є обов'язковою",
+    "emailInvalid": "Введіть дійсну адресу електронної пошти",
+    "nameLabel": "Ім'я",
+    "namePlaceholder": "Іван",
+    "passwordLabel": "Пароль",
+    "passwordMin": "Пароль має містити щонайменше 8 символів",
+    "registering": "Реєстрація...",
+    "register": "Зареєструватися",
+    "failed": "Не вдалося зареєструватися"
+  },
+  "NotFound": {
+    "title": "404",
+    "message": "Цю сторінку не знайдено.",
+    "backHome": "Повернутися на головну"
+  },
+  "TripsPage": {
+    "title": "Подорожі",
+    "description": "Ваші збережені маршрути та майбутні пригоди з'являться тут."
+  },
+  "FavoritesPage": {
+    "title": "Обране",
+    "description": "Зберігайте напрямки, готелі та враження, до яких хочете повернутися."
+  },
+  "ChatPage": {
+    "title": "AI-помічник для подорожей",
+    "description": "Ваша історія чатів та рекомендації з'являться тут."
+  },
+  "ProfilePage": {
+    "title": "Профіль",
+    "emailLabel": "Електронна пошта",
+    "name": "Ім'я",
+    "logOut": "Вийти",
+    "loadFailed": "Не вдалося завантажити профіль"
+  }
+}
