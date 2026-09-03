@@ -1,3 +1,4 @@
+import { AnalyticsTracker } from '@/components/AnalyticsTracker';
 import { AppShell } from '@/components/app-shell';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { Provider } from '@/providers/provider';
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Provider>
           <AppShell>
+            <AnalyticsTracker />
             {children}
             <GoogleAnalytics />
           </AppShell>

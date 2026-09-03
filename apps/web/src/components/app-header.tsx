@@ -1,9 +1,11 @@
 'use client';
 
 import { BrandLogo } from '@/components/brand-logo';
+import { VisitCounter } from '@/components/VisitCounter';
 import { triggerAuthChange, useAuthStatus } from '@/lib/use-auth-status';
 import { useColorMode } from '@/providers/color-mode';
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -12,6 +14,8 @@ import {
   IconButton,
   MenuContent,
   MenuItem,
+  MenuItemGroup,
+  MenuItemGroupLabel,
   MenuPositioner,
   MenuRoot,
   MenuTrigger,
@@ -97,6 +101,9 @@ export function AppHeader() {
               </Text>
             </Flex>
           </Link>
+          <div>
+            Visitors: <VisitCounter />
+          </div>
 
           {!loading && isAuthenticated ? (
             <>
@@ -127,21 +134,28 @@ export function AppHeader() {
                   <Portal>
                     <MenuPositioner>
                       <MenuContent minW="12rem" zIndex={1200} borderRadius="md" shadow="lg">
-                        <MenuItem value="account">
-                          <Text as="span" display="flex" alignItems="center" gap={2}>
-                            <FiUser />
-                            {displayName}
-                          </Text>
-                        </MenuItem>
-                        <MenuItem value="profile" onClick={() => router.push('/profile')}>
-                          <Text as="span" display="flex" alignItems="center" gap={2}>
-                            <FiUser />
-                            Profile
-                          </Text>
-                        </MenuItem>
-                        <MenuItem value="logout" onClick={handleLogout}>
-                          Logout
-                        </MenuItem>
+                        <MenuItemGroup>
+                          <MenuItemGroupLabel>
+                            <Text as="span" display="flex" alignItems="center" gap={2}>
+                              <Avatar.Root size="sm">
+                                <Avatar.Fallback>
+                                  {displayName.charAt(0).toUpperCase()}
+                                </Avatar.Fallback>
+                              </Avatar.Root>
+
+                              <Text>{displayName}</Text>
+                            </Text>
+                          </MenuItemGroupLabel>
+                          <MenuItem value="profile" onClick={() => router.push('/profile')}>
+                            <Text as="span" display="flex" alignItems="center" gap={2}>
+                              <FiUser />
+                              Profile
+                            </Text>
+                          </MenuItem>
+                          <MenuItem value="logout" onClick={handleLogout}>
+                            Logout
+                          </MenuItem>
+                        </MenuItemGroup>
                       </MenuContent>
                     </MenuPositioner>
                   </Portal>
