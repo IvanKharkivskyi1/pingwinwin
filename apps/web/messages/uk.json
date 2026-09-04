@@ -8,6 +8,12 @@
     "brandAlt": "Логотип Pingwinwin",
     "guestNameFallback": "Мандрівник"
   },
+  "Footer": {
+    "privacy": "Конфіденційність",
+    "terms": "Умови",
+    "componentLibrary": "Бібліотека компонентів",
+    "visitors": "Відвідувачі"
+  },
   "Header": {
     "home": "Головна",
     "trips": "Подорожі",
@@ -20,7 +26,6 @@
     "register": "Реєстрація",
     "profile": "Профіль",
     "logout": "Вийти",
-    "visitors": "Відвідувачі",
     "languageSwitcherLabel": "Змінити мову"
   },
   "LandingPage": {

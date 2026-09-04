@@ -1,3 +1,4 @@
+import { VisitCounter } from '@/components/VisitCounter';
 import { Box, Container, Flex, HStack, Text } from '@chakra-ui/react';
 import { useTranslations } from 'next-intl';
 
@@ -21,6 +22,10 @@ export function AppFooter() {
           <Text fontSize="sm" color="gray.500">
             © {new Date().getFullYear()} {commonT('brandName')}
           </Text>
+
+          <Box mt={4} pt={4} borderTopWidth="1px" fontSize="sm" color="gray.500">
+            {t('visitors')}: <VisitCounter />
+          </Box>
 
           <HStack gap={4} fontSize="sm" flexWrap="wrap" justify="center">
             <Link href="/privacy">

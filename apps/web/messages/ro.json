@@ -8,6 +8,12 @@
     "brandAlt": "Logo Pingwinwin",
     "guestNameFallback": "Călător"
   },
+  "Footer": {
+    "privacy": "Confidențialitate",
+    "terms": "Termeni",
+    "componentLibrary": "Bibliotecă de componente",
+    "visitors": "Vizitatori"
+  },
   "Header": {
     "home": "Acasă",
     "trips": "Călătorii",
@@ -20,7 +26,6 @@
     "register": "Înregistrare",
     "profile": "Profil",
     "logout": "Deconectare",
-    "visitors": "Vizitatori",
     "languageSwitcherLabel": "Schimbă limba"
   },
   "LandingPage": {

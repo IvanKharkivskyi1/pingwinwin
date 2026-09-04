@@ -11,7 +11,8 @@
   "Footer": {
     "privacy": "Privacy",
     "terms": "Terms",
-    "componentLibrary": "Component Library"
+    "componentLibrary": "Component Library",
+    "visitors": "Visitors"
   },
   "Header": {
     "home": "Home",
@@ -25,7 +26,6 @@
     "register": "Register",
     "profile": "Profile",
     "logout": "Logout",
-    "visitors": "Visitors",
     "languageSwitcherLabel": "Change language"
   },
   "LandingPage": {

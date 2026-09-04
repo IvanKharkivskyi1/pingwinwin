@@ -2,7 +2,6 @@
 
 import { BrandLogo } from '@/components/brand-logo';
 import { LanguageSwitcher } from '@/components/language-switcher';
-import { VisitCounter } from '@/components/VisitCounter';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { triggerAuthChange, useAuthStatus } from '@/lib/use-auth-status';
 import { useColorMode } from '@/providers/color-mode';
@@ -153,17 +152,6 @@ export function AppHeader() {
             </Flex>
           </Link>
 
-          <Box
-            display={{
-              base: 'none',
-              lg: 'block',
-            }}
-            fontSize="sm"
-            whiteSpace="nowrap"
-          >
-            {t('visitors')}: <VisitCounter />
-          </Box>
-
           {!loading && isAuthenticated && <AuthenticatedNav pathname={pathname} labels={labels} />}
 
           <HStack
@@ -287,7 +275,6 @@ export function AppHeader() {
         </Flex>
       </Container>
 
-      {/* Mobile Drawer */}
       <DrawerRoot
         open={mobileMenuOpen}
         onOpenChange={(details) => setMobileMenuOpen(details.open)}
@@ -379,10 +366,6 @@ export function AppHeader() {
                       </Button>
                     </>
                   )}
-
-                  <Box mt={4} pt={4} borderTopWidth="1px" fontSize="sm" color="gray.500">
-                    {t('visitors')}: <VisitCounter />
-                  </Box>
                 </VStack>
               </DrawerBody>
             </DrawerContent>

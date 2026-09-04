@@ -1,6 +1,6 @@
 import { AppButton } from '@pingwinwin/ui';
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from 'storybook/test';
+import { expect, fn } from 'storybook/test';
 
 const meta = {
   title: 'Components/AppButton',
@@ -94,6 +94,16 @@ export const Large: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
+  },
+
+  play: async ({ args, canvas, userEvent }) => {
+    const button = canvas.getByRole('button', {
+      name: /create trip/i,
+    });
+
+    await userEvent.click(button);
+
+    await expect(args.onClick).not.toHaveBeenCalled();
   },
 };
 
