@@ -1,12 +1,13 @@
-import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import type { ReactNode } from 'react';
 import { AnalyticsTracker } from '@/components/AnalyticsTracker';
 import { AppShell } from '@/components/app-shell';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { routing } from '@/i18n/routing';
 import { Provider } from '@/providers/provider';
+import type { Metadata } from 'next';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import type { ReactNode } from 'react';
 import '../../styles/globals.css';
 
 type Props = {
@@ -18,7 +19,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'Metadata' });
 

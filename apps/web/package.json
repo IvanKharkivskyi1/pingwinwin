@@ -15,7 +15,7 @@
     "@chakra-ui/react": "^3.36.1",
     "@emotion/react": "^11.14.0",
     "@hookform/resolvers": "^5.9.1",
-    "@repo/ui": "workspace:*",
+    "@pingwinwin/ui": "workspace:*",
     "country-flag-icons": "^1.6.20",
     "next": "16.3.0",
     "next-intl": "^4.14.2",

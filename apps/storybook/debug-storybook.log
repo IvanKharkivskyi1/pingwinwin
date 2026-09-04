@@ -1,0 +1,25 @@
+[08:43:37.451] [INFO] [36mInitializing Storybook[39m
+[08:43:37.661] [DEBUG] Getting package.json info for /home/ivan/projects/panda-micro-team/pingwinwin/apps/storybook/package.json...
+[08:43:37.661] [INFO] Package manager: pnpm
+[08:43:37.664] [WARN] Your package.json "name" field is set to "storybook".
+
+In npm, pnpm, or yarn workspaces this creates a symlink at
+node_modules/storybook that shadows the real Storybook package,
+causing "Cannot find module storybook/internal/..." errors.
+
+Please rename the "name" field in your package.json to something
+other than "storybook" (e.g. "my-storybook", "docs", "@myorg/storybook").
+[08:43:37.666] [DEBUG] Getting CLI versions from NPM for storybook...
+[08:43:37.666] [DEBUG] Executing command: pnpm info storybook version
+[08:43:39.244] [INFO] Adding Storybook version 10.6.0 to your project
+[08:43:39.245] [DEBUG] Executing command: pnpm config get minimumReleaseAge
+[08:43:39.612] [DEBUG] Using cached package.json for /home/ivan/projects/panda-micro-team/pingwinwin/apps/storybook/package.json...
+[08:43:39.613] [ERROR] Unable to initialize Storybook in this directory.
+
+Storybook couldn't detect a supported framework or configuration for your project. Make sure you're inside a framework project (e.g., React, Vue, Svelte, Angular, Next.js) and that its dependencies are installed.
+
+Tips:
+- Run init in an empty directory or create a new framework app first.
+- If this directory contains unrelated files, try a new directory for Storybook.
+[08:43:49.456] [PROMPT] Would you like to send anonymous crash reports to improve Storybook and fix bugs faster? {"choice":true}
+[08:43:49.462] [INFO] Storybook collects completely anonymous usage telemetry. We use it to shape Storybook's roadmap and prioritize features. You can learn more, including how to opt out, at https://storybook.js.org/telemetry

@@ -8,6 +8,11 @@
     "brandAlt": "Pingwinwin logo",
     "guestNameFallback": "Traveler"
   },
+  "Footer": {
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "componentLibrary": "Component Library"
+  },
   "Header": {
     "home": "Home",
     "trips": "Trips",
